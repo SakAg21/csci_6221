@@ -1,4 +1,4 @@
-#install.packages(c('tidycensus', 'ggplot2', 'tidyr','dplyr','leaflet','shiny','shinythemes'))
+#install.packages(c('tidycensus', 'tidyr','dplyr','leaflet','shiny','shinythemes'))
 
 library(tidycensus)
 library(dplyr)
@@ -76,7 +76,22 @@ server <- function(input, output) {
     }
     
     state_code <- toupper(input$stateInput)
-    bedrooms <- input$bedroomsInput
+    bedroom <- input$bedroomsInput
+    if (bedroom==1) {
+      bedrooms = 3
+    } 
+    if (bedroom==2) {
+      bedrooms = 4
+    }
+    if (bedroom==3) {
+      bedrooms = 5
+    }
+    if (bedroom==4) {
+      bedrooms = 6
+    }
+    if (bedroom==5) {
+      bedrooms = 7
+    }
     
     rent_data <- get_rent_data(state_code, bedrooms, start_year, end_year)
     qpal <- colorQuantile("Blues", rent_data$estimate, n = 5)
